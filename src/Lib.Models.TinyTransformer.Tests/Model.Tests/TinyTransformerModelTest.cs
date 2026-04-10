@@ -1,7 +1,7 @@
-using Contracts;
 using Lib.MathCore;
 using Lib.Models.TinyTransformer.Configuration;
 using Lib.Models.TinyTransformer.State;
+using MiniChatGPT.Contracts;
 
 namespace Lib.Models.TinyTransformer.Tests.Model;
 

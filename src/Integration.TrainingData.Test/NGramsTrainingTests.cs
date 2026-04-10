@@ -1,7 +1,8 @@
-﻿using MiniChatGPT.Contracts;
+﻿using Lib.Batching;
 using Lib.Training;
 using Lib.Training.Configuration;
 using Lib.Training.Metrics;
+using MiniChatGPT.Contracts;
 
 namespace Integration.TrainingData.Test
 {
@@ -12,9 +13,9 @@ namespace Integration.TrainingData.Test
         {
             // Arrange
             int[] tokens = new int[] { 1, 2, 3, 2, 1, 2, 3};
-            ILanguageModel model = new NGramModel(3);
+            ILanguageModel model = new NGramModel(tokens.Length);
 
-            var trainingConfig = new TrainingConfig(1, 0, 1);
+            var trainingConfig = new TrainingConfig(1, 0.01f, 1);
             TrainingLoop trainingLoop = new TrainingLoop();
 
             // Act
@@ -33,9 +34,9 @@ namespace Integration.TrainingData.Test
         {
             // Arrange
             int[] tokens = new int[] { 1, 2, 3, 2, 3, 1, 2, 3, 1, 2, 3, 2, 1 };
-            ILanguageModel model = new TrigramModel(3);
+            ILanguageModel model = new NGramModel(tokens.Length);
 
-            var trainingConfig = new TrainingConfig(1, 0, 1);
+            var trainingConfig = new TrainingConfig(1, 0.01f, 1);
             TrainingLoop trainingLoop = new TrainingLoop();
 
             // Act
@@ -45,7 +46,7 @@ namespace Integration.TrainingData.Test
             Assert.That(metrics, Is.Not.Null);
             Assert.That(metrics.Perplexity, Is.GreaterThan(0));
             Assert.That(float.IsFinite((float)metrics.Perplexity));
-            Assert.That(metrics.NGramCount, Is.EqualTo(11));
+            Assert.That(metrics.NGramCount, Is.EqualTo(12));
             Assert.That(metrics.CurrentEpoch, Is.EqualTo(1));
         }
 
@@ -54,10 +55,10 @@ namespace Integration.TrainingData.Test
         {
             // Arrange
             int[] tokens = new int[] { 1, 2, 3, 2, 3, 1, 2, 3, 1, 2, 3, 2, 1 };
-            ILanguageModel model = new TrigramModel(3);
+            ILanguageModel model = new NGramModel(tokens.Length);
 
-            var trainingConfig1 = new TrainingConfig(1, 0, 1);
-            var trainingConfig2 = new TrainingConfig(20, 0, 5);
+            var trainingConfig1 = new TrainingConfig(1, 0.01f, 1);
+            var trainingConfig2 = new TrainingConfig(20, 0.01f, 5);
             TrainingLoop trainingLoop = new TrainingLoop();
 
             // Act
@@ -78,9 +79,9 @@ namespace Integration.TrainingData.Test
         {
             // Arrange
             int[] tokens = new int[] { 1, 2, 3, 2, -3, 1, 2, 3, 1, 2, 3, 2, 1 };
-            ILanguageModel model = new NGramModel(3);
+            ILanguageModel model = new NGramModel(tokens.Length);
 
-            var trainingConfig = new TrainingConfig(20, 0, 5);
+            var trainingConfig = new TrainingConfig(20, 0.01f, 5);
             TrainingLoop trainingLoop = new TrainingLoop();
 
             // Act + Assert
@@ -92,17 +93,15 @@ namespace Integration.TrainingData.Test
             var tokens = new[] { 0, 1, 2, 1, 0, 1, 2 };
             var seed = 42;
 
-            var provider1 = new TokenBatchProvider(tokens);
-            var model1 = new NGramModel();
-            var config1 = new TrainingConfig(1, 2, 2, 5, null!, seed);
+            var model1 = new NGramModel(tokens.Length);
+            var config1 = new TrainingConfig(1, 0.01f, 2);
             var trainingLoop1 = new TrainingLoop();
-            var metrics1 = trainingLoop1.Train(model1, provider1, config1);
+            var metrics1 = trainingLoop1.Train(model1, null, config1, null, tokens);
 
-            var provider2 = new TokenBatchProvider(tokens);
-            var model2 = new NGramModel();
-            var config2 = new TrainingConfig(1, 2, 2, 5, null!, seed);
+            var model2 = new NGramModel(tokens.Length);
+            var config2 = new TrainingConfig(1, 0.01f, 2);
             var trainingLoop2 = new TrainingLoop();
-            var metrics2 = trainingLoop2.Train(model2, provider2, config2);
+            var metrics2 = trainingLoop2.Train(model2, null, config2, null, tokens);
 
             Assert.That(metrics1.Perplexity, Is.EqualTo(metrics2.Perplexity), 
                 "При однаковому Seed результати навчання мають повністю збігатися.");
@@ -114,9 +113,9 @@ namespace Integration.TrainingData.Test
         public void BatchingAndTraining_ShortTokenStream_Handled()
         {
             int[] tokens = new int[] { 0, 1 };
-            ILanguageModel model = new NGramModel(3);
+            ILanguageModel model = new NGramModel(tokens.Length);
 
-            var trainingConfig = new TrainingConfig(1, 0, 1);
+            var trainingConfig = new TrainingConfig(1, 0.01f, 1);
             TrainingLoop trainingLoop = new TrainingLoop();
 
             Assert.DoesNotThrow(() =>

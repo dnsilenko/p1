@@ -1,5 +1,4 @@
-﻿using Contracts;
-using Lib.Batching;
+﻿using Lib.Batching;
 using Lib.Batching.Configuration;
 using Lib.Batching.Sampling;
 using Lib.Batching.Tests;
@@ -9,6 +8,7 @@ using Lib.Models.TinyNN.State;
 using Lib.Training;
 using Lib.Training.Configuration;
 using Lib.Training.Metrics;
+using MiniChatGPT.Contracts;
 
 namespace Integration.TrainingData.Test
 {

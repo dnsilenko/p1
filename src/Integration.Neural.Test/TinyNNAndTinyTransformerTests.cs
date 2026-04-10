@@ -1,6 +1,10 @@
-﻿using Lib.Models.TinyNN;
+﻿using Lib.MathCore;
+using Lib.Models.TinyNN;
 using Lib.Models.TinyNN.Configuration;
+using Lib.Models.TinyNN.Factories;
 using Lib.Models.TinyNN.State;
+using Lib.Models.TinyTransformer.Factories;
+using System.Text.Json;
 
 namespace Integration.Neural.Test
 {
@@ -35,8 +39,6 @@ namespace Integration.Neural.Test
                 Assert.That(logits[i], Is.Not.NaN);
             }
         }
-<<<<<<< HEAD
-=======
 
         [Test]
         public void TinyNN_SoftmaxSumsToOne()
@@ -109,6 +111,6 @@ namespace Integration.Neural.Test
                 Assert.That(restoredScores[i], Is.EqualTo(originalScores[i]).Within(1e-6f), $"Розбіжність у вагах трансформера на позиції {i}");
             }
         }  
->>>>>>> origin/main
+
     }
 }

@@ -1,8 +1,8 @@
-using Contracts;
 using Lib.MathCore;
 using Lib.Models.TinyNN.Configuration;
 using Lib.Models.TinyNN.Layers;
 using Lib.Models.TinyNN.State;
+using MiniChatGPT.Contracts;
 
 namespace Lib.Models.TinyNN;
 
@@ -97,5 +97,10 @@ public class TinyNNModel : ILanguageModel
     {
         probs[target]--;
         return probs;
+    }
+
+    string IContractFingerprint.GetContractFingerprint()
+    {
+        throw new NotImplementedException();
     }
 }

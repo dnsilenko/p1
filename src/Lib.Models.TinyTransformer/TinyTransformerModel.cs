@@ -1,8 +1,8 @@
-using Contracts;
 using Lib.MathCore;
 using Lib.Models.TinyTransformer.Configuration;
 using Lib.Models.TinyTransformer.Layers;
 using Lib.Models.TinyTransformer.State;
+using MiniChatGPT.Contracts;
 
 namespace Lib.Models.TinyTransformer
 {
@@ -139,6 +139,11 @@ namespace Lib.Models.TinyTransformer
                 }
             }
             return result;
+        }
+
+        string IContractFingerprint.GetContractFingerprint()
+        {
+            throw new NotImplementedException();
         }
     }
 }

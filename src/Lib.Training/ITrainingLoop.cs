@@ -1,8 +1,8 @@
-using Contracts;
 using Lib.Batching;
 using Lib.Batching.Configuration;
 using Lib.Training.Configuration;
 using Lib.Training.Metrics;
+using MiniChatGPT.Contracts;
 
 namespace Lib.Training;
 

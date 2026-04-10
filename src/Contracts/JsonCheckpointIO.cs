@@ -2,7 +2,6 @@ using System.Text.Json;
 
 namespace MiniChatGPT.Contracts;
 
-/// <summary>JSON implementation of ICheckpointIO for saving/loading checkpoints.</summary>
 public sealed class JsonCheckpointIO : ICheckpointIO
 {
     private static readonly JsonSerializerOptions Options = new()

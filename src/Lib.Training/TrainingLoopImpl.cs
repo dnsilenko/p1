@@ -1,10 +1,10 @@
-using Contracts;
 using Lib.Batching;
 using Lib.Batching.Configuration;
 using Lib.Models.TinyNN;
 using Lib.Training.Configuration;
 using Lib.Training.Metrics;
 using Lib.Training.Scheduling;
+using MiniChatGPT.Contracts;
 using System.Text.Json;
 
 namespace Lib.Training;
@@ -63,7 +63,7 @@ public class TrainingLoopImpl
     public TrainingMetrics TrainNGram(ILanguageModel model, int[] tokens, TrainingConfig config)
     {
         int n;
-        INGramModels nGramModel;
+        INGramModel nGramModel;
 
         if (model.ModelKind == "bigram" && model is NGramModel bigramModel)
         {
@@ -116,7 +116,7 @@ public class TrainingLoopImpl
                     var jsonElement = model.GetPayloadForCheckpoint();
                     string json = JsonSerializer.Serialize(jsonElement, new JsonSerializerOptions { WriteIndented = true });
 
-                    File.WriteAllText("Data/NGramCheckpoints.json", json);
+                    File.WriteAllText("data/NGramCheckpoints.json", json);
                 }
             }
         }
