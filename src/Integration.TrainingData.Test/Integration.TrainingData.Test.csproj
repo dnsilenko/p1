@@ -17,14 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Contracts\Contracts.csproj" />
-    <ProjectReference Include="..\..\Lib.Corpus\Lib.Corpus.csproj" />
-    <ProjectReference Include="..\..\Lib.Tokenization\Lib.Tokenization.csproj" />
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
-    <ProjectReference Include="..\Lib.Corpus\Lib.Corpus\Lib.Corpus.csproj" />
-    <ProjectReference Include="..\Lib.Models.NGram\Lib.Models.NGram.csproj" />
+    <ProjectReference Include="..\Lib.Batching\Lib.Batching.csproj" />
     <ProjectReference Include="..\Lib.Models.NGram\Lib.Models.NGram\Lib.Models.NGram.csproj" />
-    <ProjectReference Include="..\Lib.Tokenization\Lib.Tokenization\Lib.Tokenization.csproj" />
+    <ProjectReference Include="..\Lib.Training\Lib.Training.csproj" />
   </ItemGroup>
 
   <ItemGroup>
