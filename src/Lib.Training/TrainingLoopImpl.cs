@@ -54,6 +54,11 @@ public class TrainingLoopImpl
                 }
 
                 metrics.UpdateTinyNN(i + 1, averageLoss, totalSteps, delta);
+
+                var jsonElement = model.GetPayloadForCheckpoint();
+                string json = JsonSerializer.Serialize(jsonElement, new JsonSerializerOptions { WriteIndented = true });
+
+                File.WriteAllText("checkpoints/TinyNNCheckpoints.json", json);
             }
         }
 

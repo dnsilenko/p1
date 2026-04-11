@@ -101,6 +101,6 @@ public class TinyNNModel : ILanguageModel
 
     string IContractFingerprint.GetContractFingerprint()
     {
-        throw new NotImplementedException();
+        return $"Lib.Models.TinyNN: 1.0.0: TinyNNModel, TinyNNModelFactory";
     }
 }
