@@ -17,10 +17,10 @@ public class TrainingLoop : ITrainingLoop
 
         TrainingLoopImpl loopImpl = new TrainingLoopImpl();
         if (model.ModelKind == "bigram" || model.ModelKind == "trigram")
-        {
+        {                                                                                                 
             return loopImpl.TrainNGram(model, tokens, config);
         }
-        else if (model.ModelKind == "TinyNN")
+        else if (model.ModelKind == "tinynn")
         {
             return loopImpl.TrainTinyNN(model, batchProvider, config, batchConfig);
         }                        
