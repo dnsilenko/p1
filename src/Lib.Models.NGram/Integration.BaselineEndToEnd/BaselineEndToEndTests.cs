@@ -16,7 +16,7 @@ public class BaselineEndToEndTests
     {
         // Arrange
         CorpusLoader loader = new CorpusLoader(new DefaultFileSystem());
-        Corpus corpus = loader.Load("data/showcase.txt", new CorpusLoadOptions { Lowercase = true });
+        Corpus corpus = loader.Load("../../../../../../data/showcase.txt", new CorpusLoadOptions { Lowercase = true });
 
         WordTokenizer tokenizer = WordTokenizer.BuildFromText(corpus.TrainText);
         int[] tokens = tokenizer.Encode(corpus.TrainText);
@@ -158,7 +158,7 @@ public class BaselineEndToEndTests
     {
         // Arrange
         CorpusLoader loader = new CorpusLoader(new DefaultFileSystem());
-        Corpus corpus = loader.Load("data/showcase3.txt", new CorpusLoadOptions { Lowercase = true });
+        Corpus corpus = loader.Load("../../../../../../data/showcase3.txt", new CorpusLoadOptions { Lowercase = true });
 
         WordTokenizer wordTokenizer = WordTokenizer.BuildFromText(corpus.TrainText);
         CharTokenizer charTokenizer = CharTokenizer.BuildFromText(corpus.TrainText);
@@ -215,7 +215,7 @@ public class BaselineEndToEndTests
     {
         // Arrange
         CorpusLoader loader = new CorpusLoader(new DefaultFileSystem());
-        Corpus corpus = loader.Load("data/showcase2.txt", new CorpusLoadOptions { Lowercase = true });
+        Corpus corpus = loader.Load("../../../../../../data/showcase2.txt", new CorpusLoadOptions { Lowercase = true });
 
         WordTokenizer tokenizer = WordTokenizer.BuildFromText(corpus.TrainText);
         int[] trainTokens = tokenizer.Encode(corpus.TrainText);
@@ -239,7 +239,7 @@ public class BaselineEndToEndTests
     {
         // Arrange
         CorpusLoader loader = new CorpusLoader(new DefaultFileSystem());
-        Corpus corpus = loader.Load("data/showcase3.txt", new CorpusLoadOptions { Lowercase = true });
+        Corpus corpus = loader.Load("../../../../../../data/showcase3.txt", new CorpusLoadOptions { Lowercase = true });
 
         WordTokenizer tokenizer = WordTokenizer.BuildFromText(corpus.TrainText);
         int[] trainTokens = tokenizer.Encode(corpus.TrainText);
@@ -268,7 +268,7 @@ public class BaselineEndToEndTests
     {
         // Arrange
         CorpusLoader loader = new CorpusLoader(new DefaultFileSystem());
-        Corpus corpus = loader.Load("data/short_input.txt", new CorpusLoadOptions { Lowercase = true });
+        Corpus corpus = loader.Load("../../../../../../data/short_input.txt", new CorpusLoadOptions { Lowercase = true });
 
         WordTokenizer tokenizer = WordTokenizer.BuildFromText(corpus.TrainText);
 
