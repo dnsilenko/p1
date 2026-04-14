@@ -58,7 +58,7 @@ public class TrainingLoopImpl
                 var jsonElement = model.GetPayloadForCheckpoint();
                 string json = JsonSerializer.Serialize(jsonElement, new JsonSerializerOptions { WriteIndented = true });
 
-                File.WriteAllText("checkpoints/TinyNNCheckpoints.json", json);
+                File.WriteAllText("../../../../../data/checkpoints/TinyNNCheckpoints.json", json);
             }
         }
 

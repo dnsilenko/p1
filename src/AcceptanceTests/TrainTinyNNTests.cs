@@ -40,9 +40,9 @@ namespace AcceptanceTests
             _modelKind = "tinynn";
         }
 
-        [TestCase("data/showcase.txt")]
-        [TestCase("data/showcase2.txt")]
-        [TestCase("data/showcase3.txt")]
+        [TestCase("../../../../../data/showcase.txt")]
+        [TestCase("../../../../../data/showcase2.txt")]
+        [TestCase("../../../../../data/showcase3.txt")]
         public void TrainingPipeline_FromTextFile_ToCheckpoint_CompletesSuccessfully(string pathToLoad)
         {
             Corpus corpus = _loader.Load(pathToLoad, _loadOptions);

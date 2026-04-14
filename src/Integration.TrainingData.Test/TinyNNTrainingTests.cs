@@ -28,7 +28,7 @@ namespace Integration.TrainingData.Test
         public void Setup()
         {
             _vocabSize = 4;
-            _modelKind = "TinyNN";
+            _modelKind = "tinynn";
             _tokens = [0, 1, 2, 3];
 
             _trainingLoop = new TrainingLoop();

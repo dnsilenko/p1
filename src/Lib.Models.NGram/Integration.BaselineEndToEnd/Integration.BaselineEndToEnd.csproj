@@ -9,36 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="data\demo_input.txt" />
-    <None Remove="data\sample.txt" />
-    <None Remove="data\short_input.txt" />
-    <None Remove="data\showcase.txt" />
-    <None Remove="data\showcase2.txt" />
-    <None Remove="data\showcase3.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="data\demo_input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\short_input.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\showcase.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\showcase2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\showcase3.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
     <PackageReference Include="NUnit" Version="4.3.2" />
