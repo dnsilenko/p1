@@ -8,7 +8,7 @@ namespace Lib.Training;
 
 public class TrainingLoop : ITrainingLoop
 {
-    public TrainingMetrics Train (ILanguageModel model, IBatchProvider batchProvider, TrainingConfig config, BatchConfig batchConfig, int[] tokens)
+    public TrainingMetrics Train (ILanguageModel model, IBatchProvider batchProvider, TrainingConfig config, BatchConfig batchConfig, int[] tokens, string checkpointPath)
     {
         if (model == null)
         {
@@ -18,13 +18,13 @@ public class TrainingLoop : ITrainingLoop
         TrainingLoopImpl loopImpl = new TrainingLoopImpl();
         if (model.ModelKind == "bigram" || model.ModelKind == "trigram")
         {                                                                                                 
-            return loopImpl.TrainNGram(model, tokens, config);
+            return loopImpl.TrainNGram(model, tokens, config, checkpointPath);
         }
         else if (model.ModelKind == "tinynn")
         {
-            return loopImpl.TrainTinyNN(model, batchProvider, config, batchConfig);
+            return loopImpl.TrainTinyNN(model, batchProvider, config, batchConfig, checkpointPath);
         }                        
-        else if (model.ModelKind == "Transformer")
+        else if (model.ModelKind == "tinytransformer")
         {
             new TrainingMetrics();
         }

@@ -19,7 +19,7 @@ namespace Integration.TrainingData.Test
             TrainingLoop trainingLoop = new TrainingLoop();
 
             // Act
-            TrainingMetrics metrics = trainingLoop.Train(model, null, trainingConfig, null, tokens);
+            TrainingMetrics metrics = trainingLoop.Train(model, null, trainingConfig, null, tokens, "../../../../../data/checkpoints/NGramCheckpoints.json");
 
             // Assert
             Assert.That(metrics, Is.Not.Null);
@@ -40,7 +40,7 @@ namespace Integration.TrainingData.Test
             TrainingLoop trainingLoop = new TrainingLoop();
 
             // Act
-            TrainingMetrics metrics = trainingLoop.Train(model, null, trainingConfig, null, tokens);
+            TrainingMetrics metrics = trainingLoop.Train(model, null, trainingConfig, null, tokens, "../../../../../data/checkpoints/NGramCheckpoints.json");
 
             // Assert
             Assert.That(metrics, Is.Not.Null);
@@ -62,8 +62,8 @@ namespace Integration.TrainingData.Test
             TrainingLoop trainingLoop = new TrainingLoop();
 
             // Act
-            TrainingMetrics metrics1 = trainingLoop.Train(model, null, trainingConfig1, null, tokens);
-            TrainingMetrics metrics2 = trainingLoop.Train(model, null, trainingConfig2, null, tokens);
+            TrainingMetrics metrics1 = trainingLoop.Train(model, null, trainingConfig1, null, tokens, "../../../../../data/checkpoints/NGramCheckpoints.json");
+            TrainingMetrics metrics2 = trainingLoop.Train(model, null, trainingConfig2, null, tokens, "../../../../../data/checkpoints/NGramCheckpoints.json");
 
             // Assert
             Assert.That(metrics1, Is.Not.Null);
@@ -85,7 +85,7 @@ namespace Integration.TrainingData.Test
             TrainingLoop trainingLoop = new TrainingLoop();
 
             // Act + Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => trainingLoop.Train(model, null, trainingConfig, null, tokens));
+            Assert.Throws<ArgumentOutOfRangeException>(() => trainingLoop.Train(model, null, trainingConfig, null, tokens, "../../../../../data/checkpoints/NGramCheckpoints.json"));
         }
         [Test]
         public void BatchingAndTraining_SeededRng_ProducesSameBatches()
@@ -96,12 +96,12 @@ namespace Integration.TrainingData.Test
             var model1 = new NGramModel(tokens.Length);
             var config1 = new TrainingConfig(1, 0.01f, 2);
             var trainingLoop1 = new TrainingLoop();
-            var metrics1 = trainingLoop1.Train(model1, null, config1, null, tokens);
+            var metrics1 = trainingLoop1.Train(model1, null, config1, null, tokens, "../../../../../data/checkpoints/NGramCheckpoints.json");
 
             var model2 = new NGramModel(tokens.Length);
             var config2 = new TrainingConfig(1, 0.01f, 2);
             var trainingLoop2 = new TrainingLoop();
-            var metrics2 = trainingLoop2.Train(model2, null, config2, null, tokens);
+            var metrics2 = trainingLoop2.Train(model2, null, config2, null, tokens, "../../../../../data/checkpoints/NGramCheckpoints.json");
 
             Assert.That(metrics1.Perplexity, Is.EqualTo(metrics2.Perplexity), 
                 "При однаковому Seed результати навчання мають повністю збігатися.");
@@ -120,7 +120,7 @@ namespace Integration.TrainingData.Test
 
             Assert.DoesNotThrow(() =>
             {
-                trainingLoop.Train(model, null, trainingConfig, null, tokens);
+                trainingLoop.Train(model, null, trainingConfig, null, tokens, "../../../../../data/checkpoints/NGramCheckpoints.json");
             });
         }
     }

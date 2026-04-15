@@ -9,12 +9,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lib.Corpus\Lib.Corpus.csproj" />
+    <ProjectReference Include="..\Lib.Models.NGram\Lib.Models.NGram.csproj" />
     <ProjectReference Include="..\Lib.Tokenization\Lib.Tokenization.csproj" />
     <ProjectReference Include="..\Lib.Batching\Lib.Batching.csproj" />
     <ProjectReference Include="..\Lib.Training\Lib.Training.csproj" />
     <ProjectReference Include="..\Lib.Models.TinyNN\Lib.Models.TinyNN.csproj" />
     <ProjectReference Include="..\Lib.Models.TinyTransformer\Lib.Models.TinyTransformer.csproj" />
-    <ProjectReference Include="..\Lib.Models.NGram\Lib.Models.NGram\Lib.Models.NGram.csproj" />
     <ProjectReference Include="..\Contracts\Contracts.csproj" />
   </ItemGroup>
 
