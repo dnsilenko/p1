@@ -62,7 +62,7 @@ namespace Trainer
 
             Console.WriteLine($"Тренування моделі {modelKind} на даних {dataPath}...");
 
-            ICorpusLoader loader = new CorpusLoader(new DefaultFileSystem());
+            CorpusLoader loader = new CorpusLoader(new DefaultFileSystem());
             Corpus corpus = loader.Load(dataPath, new CorpusLoadOptions(Lowercase: true));
 
             ITokenizer tokenizer;
@@ -113,7 +113,7 @@ namespace Trainer
                 TokenizerPayload: tokenizer.GetPayloadForCheckpoint(),
                 ModelPayload: model.GetPayloadForCheckpoint(),
                 Seed: seed,
-                ContractFingerprintChain: $"{tokenizer.GetContractFingerprint()}|{model.GetContractFingerprint()}"
+                ContractFingerprintChain: $"{loader.GetContractFingerprint()}|{tokenizer.GetContractFingerprint()}|{model.GetContractFingerprint()}"
             );
 
             JsonCheckpointIO checkpointIO = new JsonCheckpointIO();
