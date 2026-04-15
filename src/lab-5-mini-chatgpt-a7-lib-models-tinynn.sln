@@ -54,8 +54,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{253A02D2-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "checkpoints", "checkpoints", "{1384CEA6-C228-44F0-8CC8-0875DDEC5A72}"
 	ProjectSection(SolutionItems) = preProject
-		NGramCheckpoints.json = NGramCheckpoints.json
-		TinyNNCheckpoints.json = TinyNNCheckpoints.json
+		..\data\checkpoints\NGramCheckpoints.json = ..\data\checkpoints\NGramCheckpoints.json
+		..\data\checkpoints\TinyNNCheckpoints.json = ..\data\checkpoints\TinyNNCheckpoints.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib.Models.NGram", "Lib.Models.NGram\Lib.Models.NGram.csproj", "{AF9F31B0-8A94-2744-0697-444F499EBAFE}"

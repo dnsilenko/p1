@@ -24,37 +24,37 @@ namespace Trainer
             string modelKind = "trigram";
             string tokenizerKind = "word";
             int epochs = 3;
-            string outPath = "checkpoint.json";
+            string outPath = "data/checkpoints/NGramCheckpoints.json";
             int seed = 42;
             float lr = 0.1f;
 
             for (int i = 0; i < args.Length; i++)
             {
-                if (args[i] == "-data" && i + 1 < args.Length) 
+                if (args[i] == "--data" && i + 1 < args.Length) 
                 {
                     dataPath = args[++i];
                 }
-                else if (args[i] == "-model" && i + 1 < args.Length) 
+                else if (args[i] == "--model" && i + 1 < args.Length) 
                 {
                     modelKind = args[++i].ToLower();
                 }
-                else if (args[i] == "-tokenizer" && i + 1 < args.Length) 
+                else if (args[i] == "--tokenizer" && i + 1 < args.Length) 
                 {
                     tokenizerKind = args[++i].ToLower();
                 }
-                else if (args[i] == "-epochs" && i + 1 < args.Length) 
+                else if (args[i] == "--epochs" && i + 1 < args.Length) 
                 {
                     epochs = int.Parse(args[++i]);
                 }
-                else if (args[i] == "-out" && i + 1 < args.Length) 
+                else if (args[i] == "--out" && i + 1 < args.Length) 
                 {
                     outPath = args[++i];
                 }
-                else if (args[i] == "-seed" && i + 1 < args.Length) 
+                else if (args[i] == "--seed" && i + 1 < args.Length) 
                 {
                     seed = int.Parse(args[++i]);
                 }
-                else if (args[i] == "-lr" && i + 1 < args.Length) 
+                else if (args[i] == "--lr" && i + 1 < args.Length) 
                 {
                     lr = float.Parse(args[++i]);
                 }
@@ -99,7 +99,7 @@ namespace Trainer
 
             TrainingLoop trainingLoop = new TrainingLoop();
             TrainingConfig tConfig = new TrainingConfig(epochs, lr, checkpointInterval: epochs);
-            BatchConfig bConfig = new BatchConfig(BatchSize: 32, BlockSize: 16);
+            BatchConfig bConfig = new BatchConfig(BatchSize: 64, BlockSize: 32);
             
             ITokenStream stream = new ArrayTokenStream(tokens);
             IBatchProvider batchProvider = new TokenBatchProvider(stream, new BatchWindowSampler());
