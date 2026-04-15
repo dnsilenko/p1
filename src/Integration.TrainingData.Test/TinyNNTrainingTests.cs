@@ -52,7 +52,7 @@ namespace Integration.TrainingData.Test
             int blockSize = 2;
             BatchConfig batchConfig = new BatchConfig(batchSize, blockSize);
 
-            TrainingMetrics metrics = _trainingLoop.Train(model, batchProvider, trainingConfig, batchConfig, null);
+            TrainingMetrics metrics = _trainingLoop.Train(model, batchProvider, trainingConfig, batchConfig, null, "../../../../../data/checkpoints/TinyNNCheckpoints.json");
 
             Assert.That(metrics.AverageLoss, Is.Not.NaN);
             Assert.That(metrics.CurrentEpoch, Is.EqualTo(10));
@@ -75,7 +75,7 @@ namespace Integration.TrainingData.Test
             int blockSize = 2;
             BatchConfig batchConfig = new BatchConfig(batchSize, blockSize);
 
-            Assert.Throws<ArgumentException>(() => _trainingLoop.Train(model, batchProvider, trainingConfig, batchConfig, null)); 
+            Assert.Throws<ArgumentException>(() => _trainingLoop.Train(model, batchProvider, trainingConfig, batchConfig, null, "../../../../../data/checkpoints/TinyNNCheckpoints.json")); 
         }
     }
 }

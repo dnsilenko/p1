@@ -104,7 +104,7 @@ namespace Trainer
             ITokenStream stream = new ArrayTokenStream(tokens);
             IBatchProvider batchProvider = new TokenBatchProvider(stream, new BatchWindowSampler());
 
-            var metrics = trainingLoop.Train(model, batchProvider, tConfig, bConfig, tokens);
+            var metrics = trainingLoop.Train(model, batchProvider, tConfig, bConfig, tokens, outPath);
             Console.WriteLine($"Тренування завершено. Зберігаємо чекпоінт");
 
             var checkpoint = new Checkpoint(

@@ -8,5 +8,5 @@ namespace Lib.Training;
 
 public interface ITrainingLoop
 {
-    TrainingMetrics Train(ILanguageModel model, IBatchProvider batchProvider, TrainingConfig config, BatchConfig batchConfig, int[] tokens);
+    TrainingMetrics Train(ILanguageModel model, IBatchProvider batchProvider, TrainingConfig config, BatchConfig batchConfig, int[] tokens, string checkpointPath);
 }

@@ -11,7 +11,7 @@ namespace Lib.Training;
 
 public class TrainingLoopImpl 
 {
-    public TrainingMetrics TrainTinyNN(ILanguageModel model, IBatchProvider batchProvider, TrainingConfig config, BatchConfig batchConfig)
+    public TrainingMetrics TrainTinyNN(ILanguageModel model, IBatchProvider batchProvider, TrainingConfig config, BatchConfig batchConfig, string checkpointPath)
     {
         if (model is not TinyNNModel tinyNNModel)
             throw new InvalidCastException("Invalid model");
@@ -58,14 +58,14 @@ public class TrainingLoopImpl
                 var jsonElement = model.GetPayloadForCheckpoint();
                 string json = JsonSerializer.Serialize(jsonElement, new JsonSerializerOptions { WriteIndented = true });
 
-                File.WriteAllText("../../../../../data/checkpoints/TinyNNCheckpoints.json", json);
+                File.WriteAllText(checkpointPath, json);
             }
         }
 
         return metrics;
     }
 
-    public TrainingMetrics TrainNGram(ILanguageModel model, int[] tokens, TrainingConfig config)
+    public TrainingMetrics TrainNGram(ILanguageModel model, int[] tokens, TrainingConfig config, string checkpointPath)
     {
         int n;
         INGramModel nGramModel;
@@ -121,7 +121,7 @@ public class TrainingLoopImpl
                     var jsonElement = model.GetPayloadForCheckpoint();
                     string json = JsonSerializer.Serialize(jsonElement, new JsonSerializerOptions { WriteIndented = true });
 
-                    File.WriteAllText("../../../../../data/checkpoints/NGramCheckpoints.json", json);
+                    File.WriteAllText(checkpointPath, json);
                 }
             }
         }

@@ -57,7 +57,7 @@ namespace AcceptanceTests
             BatchWindowSampler windowSampler = new BatchWindowSampler();
             IBatchProvider batchProvider = new TokenBatchProvider(tokenStream, windowSampler);
 
-            _training.Train(model, batchProvider, _trainingConfig, _batchConfig, null);
+            _training.Train(model, batchProvider, _trainingConfig, _batchConfig, null, "../../../../../data/checkpoints/TinyNNCheckpoints.json");
 
             float[] scoresBefore = model.NextTokenScores(tokens);
             JsonCheckpointIO checkpointIO = new JsonCheckpointIO();
