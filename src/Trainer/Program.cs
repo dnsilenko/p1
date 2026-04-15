@@ -60,9 +60,9 @@ namespace Trainer
                 }
             }
 
-            Console.WriteLine($"Тренування моделі {modelKind} на даних {dataPath}...");
+            Console.WriteLine($"Training model {modelKind} on data {dataPath}...");
 
-            ICorpusLoader loader = new CorpusLoader(new DefaultFileSystem());
+            CorpusLoader loader = new CorpusLoader(new DefaultFileSystem());
             Corpus corpus = loader.Load(dataPath, new CorpusLoadOptions(Lowercase: true));
 
             ITokenizer tokenizer;
@@ -94,7 +94,7 @@ namespace Trainer
                     model = new TinyTransformerModelFactory().Create(tokenizer.VocabSize, seed);
                     break;
                 default:
-                    throw new ArgumentException($"Невідомий тип моделі: {modelKind}");
+                    throw new ArgumentException($"Unknown model type: {modelKind}");
             }
 
             TrainingLoop trainingLoop = new TrainingLoop();
@@ -105,7 +105,7 @@ namespace Trainer
             IBatchProvider batchProvider = new TokenBatchProvider(stream, new BatchWindowSampler());
 
             var metrics = trainingLoop.Train(model, batchProvider, tConfig, bConfig, tokens, outPath);
-            Console.WriteLine($"Тренування завершено. Зберігаємо чекпоінт");
+            Console.WriteLine($"Training completed. Saving the checkpoint");
 
             var checkpoint = new Checkpoint(
                 ModelKind: modelKind,
@@ -113,13 +113,13 @@ namespace Trainer
                 TokenizerPayload: tokenizer.GetPayloadForCheckpoint(),
                 ModelPayload: model.GetPayloadForCheckpoint(),
                 Seed: seed,
-                ContractFingerprintChain: $"{tokenizer.GetContractFingerprint()}|{model.GetContractFingerprint()}"
+                ContractFingerprintChain: $"{loader.GetContractFingerprint()}|{tokenizer.GetContractFingerprint()}|{model.GetContractFingerprint()}"
             );
 
             JsonCheckpointIO checkpointIO = new JsonCheckpointIO();
             checkpointIO.Save(outPath, checkpoint);
 
-            Console.WriteLine($"Модель збережена у файл {outPath}");
+            Console.WriteLine($"Model saved to file {outPath}");
         }
     }
 }
