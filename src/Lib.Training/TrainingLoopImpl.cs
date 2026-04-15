@@ -113,6 +113,10 @@ public class TrainingLoopImpl
                 }
 
                 nGramCount = tokens.Length - n + 1;
+                if (nGramCount < 0)
+                {
+                    nGramCount = 0;
+                }
 
                 metrics.UpdateNGram(i + 1, perplexity, nGramCount, delta);
 
