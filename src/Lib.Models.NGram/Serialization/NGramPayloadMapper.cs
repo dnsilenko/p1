@@ -6,12 +6,7 @@ public class NGramPayloadMapper
     {
         object obj = new
         {
-            modelKind = model.ModelKind,
-            modelPayload = new
-            {
-                bigramProbs = model._probs
-            },
-            contractFingerprintChain = model.GetContractFingerprint()
+            bigramProbs = model._probs
         };
 
         return JsonSerializer.SerializeToElement(obj); ;
@@ -19,12 +14,7 @@ public class NGramPayloadMapper
 
     public void FromJsonElementToBigram(JsonElement jsonElement, NGramModel model)
     {
-        if (!jsonElement.TryGetProperty("modelPayload", out JsonElement payload))
-        {
-            throw new InvalidOperationException("Checkpoint is missing modelPayload.");
-        }
-
-        if (!payload.TryGetProperty("bigramProbs", out JsonElement probsElement))
+        if (!jsonElement.TryGetProperty("bigramProbs", out JsonElement probsElement))
         {
             throw new InvalidOperationException("Checkpoint is missing bigramProbs.");
         }
@@ -59,13 +49,8 @@ public class NGramPayloadMapper
 
         object obj = new
         {
-            modelKind = model.ModelKind,
-            modelPayload = new
-            {
-                bigramProbs = model.bigramModel._probs,
-                trigramProbs = temp
-            },
-            contractFingerprintChain = model.GetContractFingerprint()
+            bigramProbs = model.bigramModel._probs,
+            trigramProbs = temp
         };
 
         return JsonSerializer.SerializeToElement(obj);
@@ -73,17 +58,12 @@ public class NGramPayloadMapper
 
     public void FromJsonElementToTrigram(JsonElement jsonElement, TrigramModel model)
     {
-        if (!jsonElement.TryGetProperty("modelPayload", out JsonElement payload))
-        {
-            throw new InvalidOperationException("Checkpoint is missing modelPayload.");
-        }
-
-        if (!payload.TryGetProperty("bigramProbs", out JsonElement bigramElement))
+        if (!jsonElement.TryGetProperty("bigramProbs", out JsonElement bigramElement))
         {
             throw new InvalidOperationException("Checkpoint is missing bigramProbs.");
         }
 
-        if (!payload.TryGetProperty("trigramProbs", out JsonElement trigramElement))
+        if (!jsonElement.TryGetProperty("trigramProbs", out JsonElement trigramElement))
         {
             throw new InvalidOperationException("Checkpoint is missing trigramProbs.");
         }
