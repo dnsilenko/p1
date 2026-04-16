@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 
+namespace Lib.Models.NGram.Serialization;
 public class NGramPayloadMapper
 {
     public JsonElement FromBigramToJson(NGramModel model)
