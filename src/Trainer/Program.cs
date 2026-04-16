@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices.Marshalling;
 using Lib.Batching;
 using Lib.Batching.Configuration;
 using Lib.Batching.Sampling;
@@ -58,7 +59,12 @@ namespace Trainer
                 }
                 else if (args[i] == "--epochs" && i + 1 < args.Length) 
                 {
-                    epochs = int.Parse(args[++i]);
+                    bool check = int.TryParse(args[++i], out epochs);
+                    if (!check)
+                    {
+                        Console.WriteLine($"--epochs must be an integer.");
+                        return;
+                    }
                 }
                 else if (args[i] == "--out" && i + 1 < args.Length) 
                 {
@@ -66,11 +72,21 @@ namespace Trainer
                 }
                 else if (args[i] == "--seed" && i + 1 < args.Length) 
                 {
-                    seed = int.Parse(args[++i]);
+                    bool check = int.TryParse(args[++i], out seed);
+                    if (!check)
+                    {
+                        Console.WriteLine($"--seed must be an integer.");
+                        return;
+                    }
                 }
                 else if (args[i] == "--lr" && i + 1 < args.Length) 
                 {
-                    lr = float.Parse(args[++i]);
+                    bool check = float.TryParse(args[++i], out lr);
+                    if (!check)
+                    {
+                        Console.WriteLine($"--lr must be a float.");
+                        return;
+                    }
                 }
                 else if (i + 1 < args.Length)
                 {
@@ -84,14 +100,20 @@ namespace Trainer
             CorpusLoader loader = new CorpusLoader(new DefaultFileSystem());
             Corpus corpus = loader.Load(dataPath, new CorpusLoadOptions(Lowercase: true));
 
-            ITokenizer tokenizer;
+            ITokenizer tokenizer = null;
             if (tokenizerKind == "char")
             {
                 tokenizer = CharTokenizer.BuildFromText(corpus.TrainText);
             }
-            else
+            else if (tokenizerKind == "word")
             {
                 tokenizer = WordTokenizer.BuildFromText(corpus.TrainText);
+            }
+            else
+            {
+                Console.WriteLine($"Unknown tokenizer type: {tokenizerKind}");
+                Console.WriteLine("Type '--train --help' to see more information.");
+                return;
             }
 
             int[] tokens = tokenizer.Encode(corpus.TrainText);
@@ -113,7 +135,9 @@ namespace Trainer
                     model = new TinyTransformerModelFactory().Create(tokenizer.VocabSize, seed);
                     break;
                 default:
-                    throw new ArgumentException($"Unknown model type: {modelKind}");
+                    Console.WriteLine($"Unknown model type: {modelKind}");
+                    Console.WriteLine("Type '--train --help' to see more information.");
+                    return;
             }
 
             TrainingLoop trainingLoop = new TrainingLoop();
