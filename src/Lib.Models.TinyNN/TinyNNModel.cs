@@ -99,9 +99,10 @@ public class TinyNNModel : ILanguageModel
         float[] probs = mathOpsImpl.Softmax(logits);
         float probsTarget = probs[target];
 
-        if (probsTarget == 0f)
+        float epsilon = 0.0000001f;
+        if (probsTarget < epsilon)
         {
-            throw new ArgumentException("Probs target in train step is 0");
+            probsTarget = epsilon;
         }
 
         float loss = (float)Math.Log(probsTarget);
