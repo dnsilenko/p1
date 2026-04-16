@@ -147,8 +147,17 @@ namespace Trainer
             ITokenStream stream = new ArrayTokenStream(tokens);
             IBatchProvider batchProvider = new TokenBatchProvider(stream, new BatchWindowSampler());
 
-            var metrics = trainingLoop.Train(model, batchProvider, tConfig, bConfig, tokens, outPath);
-            Console.WriteLine($"Training completed. Saving the checkpoint");
+            try
+            {
+                var metrics = trainingLoop.Train(model, batchProvider, tConfig, bConfig, tokens, outPath);
+                Console.WriteLine($"Training completed. Saving the checkpoint");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Training failed: {ex.Message}");
+                return;
+            }
+            
 
             var checkpoint = new Checkpoint(
                 ModelKind: modelKind,
@@ -159,8 +168,16 @@ namespace Trainer
                 ContractFingerprintChain: $"{loader.GetContractFingerprint()}|{tokenizer.GetContractFingerprint()}|{model.GetContractFingerprint()}"
             );
 
-            JsonCheckpointIO checkpointIO = new JsonCheckpointIO();
-            checkpointIO.Save(outPath, checkpoint);
+            try
+            {
+                JsonCheckpointIO checkpointIO = new JsonCheckpointIO();
+                checkpointIO.Save(outPath, checkpoint);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Checkpoint save failed: {ex.Message}");
+                return;
+            }
 
             Console.WriteLine($"Model saved to file {outPath}");
         }
