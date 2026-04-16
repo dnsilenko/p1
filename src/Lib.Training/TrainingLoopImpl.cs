@@ -89,7 +89,7 @@ public class TrainingLoopImpl
 
         for (int i = 0; i < config.Epochs; i++)
         {
-            if (i == 0 || i == config.Epochs - 1)
+            if (i == config.Epochs - 1)
             {
                 float perplexity = 0f;
                 int nGramCount = 0;

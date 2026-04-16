@@ -6,7 +6,7 @@ public sealed class JsonCheckpointIO : ICheckpointIO
 {
     private static readonly JsonSerializerOptions Options = new()
     {
-        WriteIndented = false,
+        WriteIndented = true,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
 

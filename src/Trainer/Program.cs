@@ -21,7 +21,7 @@ namespace Trainer
     {
         static void Main(string[] args)
         {
-            string dataPath = "../data/showcase.txt";
+            string dataPath = "../data/sample.txt";
             string modelKind = "trigram";
             string tokenizerKind = "word";
             int epochs = 3;
