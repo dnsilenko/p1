@@ -1,5 +1,6 @@
 ﻿using MiniChatGPT.Contracts;
 using System.Text.Json;
+using Lib.Models.NGram.Serialization;
 
 public class TrigramModel : ILanguageModel, INGramModel
 {
