@@ -28,8 +28,22 @@ namespace Trainer
             int seed = 42;
             float lr = 0.1f;
 
-            for (int i = 0; i < args.Length; i++)
+            if (args.Length < 1 || args[0] != "--train")
             {
+                Console.WriteLine("Invalid command format.");
+                Console.WriteLine("Type '--train -help' to see more information.");
+                return;
+            }
+
+            if (args.Length >= 2 && args[1] == "-help")
+            {
+                PrintHelp();
+                return;
+            }
+
+            for (int i = 1; i < args.Length; i++)
+            {
+                
                 if (args[i] == "--data" && i + 1 < args.Length) 
                 {
                     dataPath = args[++i];
@@ -57,6 +71,11 @@ namespace Trainer
                 else if (args[i] == "--lr" && i + 1 < args.Length) 
                 {
                     lr = float.Parse(args[++i]);
+                }
+                else if (i + 1 < args.Length)
+                {
+                    Console.WriteLine($"Warning: Unknown option '{args[i]}' or argument list will be ignored.");
+                    Console.WriteLine("Type '--train --help' to see more information.");
                 }
             }
 
@@ -120,6 +139,20 @@ namespace Trainer
             checkpointIO.Save(outPath, checkpoint);
 
             Console.WriteLine($"Model saved to file {outPath}");
+        }
+
+        static void PrintHelp()
+        {
+            Console.WriteLine("Usage: dotnet run –project src/Trainer --train [options]");
+            Console.WriteLine("Options:");
+            Console.WriteLine("  --data <path>         File path for training data (default: ../data/sample.txt)");
+            Console.WriteLine("  --model <type>        Model type: bigram, trigram, tinynn, tinytransformer (default: trigram)");
+            Console.WriteLine("  --tokenizer <type>    Tokenizer type: word, char (default: word)");
+            Console.WriteLine("  --epochs <integer>    Quantity of training epochs (default: 3)");
+            Console.WriteLine("  --out <path>          File path for checkpoint save (default: checkpoint.json)");
+            Console.WriteLine("  --seed <integer>      Seed (default: 42)");
+            Console.WriteLine("  --lr <float>          Learning rate for TinyNN (default: 0.1)");
+            Console.WriteLine("   -help                See the list of available options");
         }
     }
 }
