@@ -149,25 +149,28 @@ namespace Trainer
             int[] tokens = tokenizer.Encode(corpus.TrainText);
 
             ILanguageModel model;
-            
-            switch (modelKind)
+
+            if (modelKind == "bigram")
             {
-                case "bigram":
-                    model = new NGramModelFactory().Create("bigram", tokenizer.VocabSize);
-                    break;
-                case "trigram":
-                    model = new NGramModelFactory().Create("trigram", tokenizer.VocabSize);
-                    break;
-                case "tinynn":
-                    model = new TinyNNModelFactory().CreateNewModel("tinynn", tokenizer.VocabSize);
-                    break;
-                case "tinytransformer":
-                    model = new TinyTransformerModelFactory().Create(tokenizer.VocabSize, seed);
-                    break;
-                default:
-                    Console.WriteLine($"Unknown model type: {modelKind}");
-                    Console.WriteLine("Type '--train --help' to see more information.");
-                    return;
+                model = new NGramModelFactory().Create("bigram", tokenizer.VocabSize);
+            }
+            else if (modelKind == "trigram")
+            {
+                model = new NGramModelFactory().Create("trigram", tokenizer.VocabSize);
+            }
+            else if (modelKind == "tinynn")
+            {
+                model = new TinyNNModelFactory().CreateNewModel("tinynn", tokenizer.VocabSize);
+            }
+            else if (modelKind == "tinytransformer")
+            {
+                model = new TinyTransformerModelFactory().Create(tokenizer.VocabSize, seed);
+            }
+            else
+            {
+                Console.WriteLine($"Unknown model type: {modelKind}");
+                Console.WriteLine("Type '--train --help' to see more information.");
+                return;
             }
 
             TrainingLoop trainingLoop = new TrainingLoop();
@@ -223,6 +226,9 @@ namespace Trainer
             Console.WriteLine("  --out <path>          File path for checkpoint save (default: checkpoint.json)");
             Console.WriteLine("  --seed <integer>      Seed (default: 42)");
             Console.WriteLine("  --lr <float>          Learning rate for TinyNN (default: 0.1)");
+            Console.WriteLine("  --batch <integer>     Batch size for training data (default: 1)");
+            Console.WriteLine("  --block <integer>     Context block size for the model (default: 1)");
+            Console.WriteLine("  --interval <integer>  Epoch interval for saving checkpoints (default: equal to epochs)");
             Console.WriteLine("   -help                See the list of available options");
         }
     }
