@@ -45,6 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{253A02D2-A
 	ProjectSection(SolutionItems) = preProject
 		..\data\demo_input.txt = ..\data\demo_input.txt
 		..\data\desktop.ini = ..\data\desktop.ini
+		..\data\mediumspace.txt = ..\data\mediumspace.txt
 		..\data\sample.txt = ..\data\sample.txt
 		..\data\short_input.txt = ..\data\short_input.txt
 		..\data\showcase.txt = ..\data\showcase.txt

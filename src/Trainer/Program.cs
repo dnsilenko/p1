@@ -28,6 +28,9 @@ namespace Trainer
             string outPath = "data/checkpoints/NGramCheckpoints.json";
             int seed = 42;
             float lr = 0.1f;
+            int batchSize = 1;
+            int blockSize = 1;
+            int checkpointInterval = epochs;
 
             if (args.Length < 1 || args[0] != "--train")
             {
@@ -93,6 +96,18 @@ namespace Trainer
                     Console.WriteLine($"Warning: Unknown option '{args[i]}' or argument list will be ignored.");
                     Console.WriteLine("Type '--train --help' to see more information.");
                 }
+                else if (args[i] == "--batch" && i + 1 < args.Length)
+                {
+                    batchSize = int.Parse(args[++i]);
+                }
+                else if (args[i] == "--block" && i + 1 < args.Length)
+                {
+                    blockSize = int.Parse(args[++i]);
+                }
+                else if (args[i] == "--interval" && i + 1 < args.Length)
+                {
+                    checkpointInterval = int.Parse(args[++i]);
+                }
             }
 
             Console.WriteLine($"Training model {modelKind} on data {dataPath}...");
@@ -141,8 +156,8 @@ namespace Trainer
             }
 
             TrainingLoop trainingLoop = new TrainingLoop();
-            TrainingConfig tConfig = new TrainingConfig(epochs, lr, checkpointInterval: epochs);
-            BatchConfig bConfig = new BatchConfig(BatchSize: 64, BlockSize: 32);
+            TrainingConfig tConfig = new TrainingConfig(epochs, lr, checkpointInterval);      
+            BatchConfig bConfig = new BatchConfig(batchSize, blockSize);
             
             ITokenStream stream = new ArrayTokenStream(tokens);
             IBatchProvider batchProvider = new TokenBatchProvider(stream, new BatchWindowSampler());
