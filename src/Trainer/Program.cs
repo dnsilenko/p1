@@ -91,22 +91,37 @@ namespace Trainer
                         return;
                     }
                 }
-                else if (i + 1 < args.Length)
-                {
-                    Console.WriteLine($"Warning: Unknown option '{args[i]}' or argument list will be ignored.");
-                    Console.WriteLine("Type '--train --help' to see more information.");
-                }
                 else if (args[i] == "--batch" && i + 1 < args.Length)
                 {
-                    batchSize = int.Parse(args[++i]);
+                    bool check = int.TryParse(args[++i], out batchSize);
+                    if (!check)
+                    {
+                        Console.WriteLine($"--batch must be an integer.");
+                        return;
+                    }
                 }
                 else if (args[i] == "--block" && i + 1 < args.Length)
                 {
-                    blockSize = int.Parse(args[++i]);
+                    bool check = int.TryParse(args[++i], out blockSize);
+                    if (!check)
+                    {
+                        Console.WriteLine($"--block must be an integer.");
+                        return;
+                    }
                 }
                 else if (args[i] == "--interval" && i + 1 < args.Length)
                 {
-                    checkpointInterval = int.Parse(args[++i]);
+                    bool check = int.TryParse(args[++i], out checkpointInterval);
+                    if (!check)
+                    {
+                        Console.WriteLine($"--interval must be an integer.");
+                        return;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Warning: Unknown option '{args[i]}' or argument list will be ignored.");
+                    Console.WriteLine("Type '--train --help' to see more information.");
                 }
             }
 
